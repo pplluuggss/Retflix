@@ -1,0 +1,236 @@
+@import '_reset.scss';
+
+@font-face {
+    font-family: Days-one;
+    src: url("/assets/fonts/DaysOne-Regular.ttf");
+}
+/*-------------------------------*/
+._container{
+    max-width: 1740px;
+    margin: 0 auto;
+    box-sizing: content-box;
+}
+/*-------------------------------*/
+.header{
+    position: relative;
+    z-index: 50;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 102px;
+    &__section1{
+        display: flex;
+        align-items: center;
+    }
+    &__logo{
+        margin-right: 60px;
+    }
+    &__menu{
+        display: flex;
+    }
+    &__item{
+        margin-right: 30px;
+    }
+    &__link{
+        font-size: 18px;
+        color: #DADADA;
+        span{
+            color: #ffffff;
+        }
+    }
+    &__section2{
+        display: flex;
+        align-items: center;
+        button{
+            cursor: pointer;
+            font-family: Days-one;
+            padding: 10px 15px;
+            border-radius: 10px;
+            color: #fff;
+        }
+        .button1{
+            background: linear-gradient(90deg, #FF5252 0%, #8D1E1E 100%);
+        }
+        .button2{
+            border: 1px solid #fff;
+            background: none;
+        }
+        :not(:last-child){
+            margin-right: 30px;
+        }
+    }
+}
+
+/*-------------------------------*/
+.slick-track{
+    display: flex;
+}
+
+.hero{
+    position: relative;
+    top: -102px;
+    z-index: 10;
+    overflow: hidden;
+    &__item{
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        >video{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero__content{
+            position: absolute;
+            display: flex;
+            align-items: center;
+            bottom: 90px;
+            z-index: 50;
+            
+        }
+        .details{
+            padding: 0px 0px 0px 90px;
+            max-width: 650px;
+            > *:not(:last-child){
+                margin-bottom: 24px;}
+            &__title{
+                font-size: 48px;
+            }
+            &__text{
+                font-size: 20px;
+                color: #cacaca;
+            }
+            &__buttons{
+                display: flex;
+                align-items: center;
+                > *:first-child{
+                    margin-right: 20px;
+                }
+                button{
+                    cursor: pointer;
+                    color: #fff;
+                    border-radius: 10px;
+                    font-family: Days-one;
+                    padding: 13px 24px;
+                    display: flex;
+                    align-items: center;
+                    img{
+                        margin-right: 10px;
+                    }
+                }
+                .button1{
+                    background: #BF2929;
+                }
+                .button2{
+                    border: 1px solid #fff;
+                    background: none;
+                }
+            }
+        }
+    }
+    &__overlay{
+        width: 100%;
+        height: 100%;
+        top: 0;
+        background: linear-gradient(180deg, #0D0C0F 0%, rgba(13, 12, 15, 0.28) 27%, rgba(13, 12, 15, 0) 47%, rgba(13, 12, 15, 0.28) 68%, #0D0C0F 100%);
+        position: absolute;
+        cursor: pointer;
+    }
+}
+.hero .slick-dots{
+    position: absolute;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    right: 90px;
+    bottom: 90px;
+}
+.hero .slick-dots li{
+    margin: 0 5px;
+}
+.hero .slick-dots li.slick-active button{
+    background-color: #CACACA;
+}
+.hero .slick-dots button{
+    cursor: pointer;
+    font-size: 0;
+    width: 10px;
+    height: 10px;
+    background-color: #707070;
+    border-radius: 10px;
+}
+/*-------------------------------*/
+.content-block{
+    padding: 40px 0px 40px 90px;
+    >*:not(:last-child){
+        margin-bottom: 24px;
+    }
+    h3{
+        font-size: 24px;
+    }
+    .content{
+        position: relative;
+        overflow: hidden;
+        .slick-slide{
+            margin: 0 6px;
+        }
+        
+        &__item{
+            >*:not(:last-child){
+                margin-bottom: 12px;
+            }
+        }
+        &__title{
+            font-size: 20px;
+        }
+        &__rating{
+            display: flex;
+            align-items: center;
+            >*:not(:last-child){
+                margin-right: 5px;
+            }
+            span1{
+                width: 2px;
+                height: 20px;
+                background: #707070;
+            }
+            span2{
+                width: 5px;
+                height: 5px;
+                border-radius: 5px;
+                background: #707070;
+            }
+            div{
+                color: #707070;
+            }
+        }
+        &__overlay-next{
+            position: absolute;
+            right: 0;
+            z-index: 10;
+            background: linear-gradient(269.96deg, #0D0C0F 18.88%, rgba(13, 12, 15, 0) 99.97%, #0D0C0F 99.97%);
+            padding: 126.5px 20px 126.5px 149px;
+            img{
+                cursor: pointer;
+            }
+        }
+       
+    }
+}
+/*-------------------------------*/
+.subscription{
+    &__content{
+        padding: 100px 50px;
+        display: grid;
+    }
+}
+/*-------------------------------*/
+
+/*-------------------------------*/
+
+/*-------------------------------*/
+
+/*-------------------------------*/
+
+/*-------------------------------*/
