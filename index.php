@@ -1,3 +1,6 @@
+<?php
+  require_once 'assets/php/config/connect.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,24 +8,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Подключение стилей -->
     <link rel="stylesheet" href="assets/css/style.css" />
-    <!-- API -->
-    <link rel="stylesheet" href="assets/api/items.json" />
+    <!-- player -->
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
     <title>RETFLIX</title>
   </head>
   <body>
     <!-- Общий контейнер -->
     <div class="wrapper">
-      <!-- Шапка -->
+    <div class="hero-player">
+      <span></span>
+      <div class="hero-player-close">
+        <span></span>
+      </div>
+      <video id="player" playsinline controls data-poster="assets/img/hero1.jpg">
+      <source
+        src="assets/video/BO SINN _ LXAES - Own Paradise _ EDIT - Trim.mp4"
+        type="video/mp4"
+      />
 
+      <track
+        kind="captions"
+        label="English captions"
+        src="/path/to/captions.vtt"
+        srclang="en"
+        default
+      />
+    </video>
+      </div>
+      <div class=""></div>
+      <!-- Шапка -->
       <header class="header _container">
         <div class="header__section1">
-          <a href="home.html" class="header__logo">
+          <a href="index.php" class="header__logo">
             <img src="assets/img/logo.svg" alt="logo" />
           </a>
           <nav class="header__nav">
             <ul class="header__menu">
               <li class="header__item">
-                <a href="#" class="header__link"><span>Главная</span></a>
+                <a href="index.php" class="header__link"><span>Главная</span></a>
               </li>
               <li class="header__item">
                 <a href="#" class="header__link">Фильмы</a>
@@ -78,6 +101,7 @@
           </div>
         </div>
       </header>
+      
       <div class="hero">
         <div class="hero__item">
           <div class="hero__overlay"></div>
@@ -99,7 +123,7 @@
                 смелости, где каждый шаг может стать решающим.
               </div>
               <div class="details__buttons">
-                <button class="button1">
+                <button class="button1" id="hero-play">
                   <img src="assets/img/play.svg" alt="play" />
                   <p>Смотреть</p>
                 </button>
@@ -130,7 +154,7 @@
                 Джокера.
               </div>
               <div class="details__buttons">
-                <button class="button1">
+                <button class="button1" >
                   <img src="assets/img/play.svg" alt="play" />
                   <p>Смотреть</p>
                 </button>
@@ -246,73 +270,27 @@
               class="overlay-next-img1"
             />
           </div>
-          <div class="content1">
-            <div class="content__item">
-              <img src="assets/img/1.webp" alt="" />
-              <div class="content__title">1+1</div>
+          <div class="content">
+          <?php
+            $films = mysqli_query($connect, query: "SELECT * FROM `films`");
+            $films = mysqli_fetch_all($films);
+            foreach($films as $film){
+              ?>
+              <input type="hidden" name="film_id" value="<?= $film[0]?>">
+              <div class="content__item">
+              <img src="<?php echo $film[1]?>" alt="film" />
+              <div class="content__title"><?= $film[2]?></div>
               <div class="content__rating">
                 <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
+                <p><?=$film[3] ?></p>
                 <span1></span1>
                 <span2></span2>
-                <div>Фильм</div>
+                <div><?= $film[4]?></div>
               </div>
             </div>
-            <div class="content__item">
-              <img src="assets/img/2.png" alt="" />
-              <div class="content__title">Королевство зверей</div>
-              <div class="content__rating">
-                <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
-                <span1></span1>
-                <span2></span2>
-                <div>Фильм</div>
-              </div>
-            </div>
-            <div class="content__item">
-              <img src="assets/img/3.png" alt="" />
-              <div class="content__title">Остров теней</div>
-              <div class="content__rating">
-                <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
-                <span1></span1>
-                <span2></span2>
-                <div>Фильм</div>
-              </div>
-            </div>
-            <div class="content__item">
-              <img src="assets/img/4.png" alt="" />
-              <div class="content__title">Мгла</div>
-              <div class="content__rating">
-                <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
-                <span1></span1>
-                <span2></span2>
-                <div>Фильм</div>
-              </div>
-            </div>
-            <div class="content__item">
-              <img src="assets/img/5.png" alt="" />
-              <div class="content__title">Спенсер</div>
-              <div class="content__rating">
-                <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
-                <span1></span1>
-                <span2></span2>
-                <div>Фильм</div>
-              </div>
-            </div>
-            <div class="content__item">
-              <img src="assets/img/6.png" alt="" />
-              <div class="content__title">Треугольник печали</div>
-              <div class="content__rating">
-                <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
-                <span1></span1>
-                <span2></span2>
-                <div>Фильм</div>
-              </div>
-            </div>
+            <?php
+            }
+          ?>
           </div>
         </section>
         <section class="content-block">
@@ -324,73 +302,27 @@
               class="overlay-next-img2"
             />
           </div>
-          <div class="content2">
-            <div class="content__item">
-              <img src="assets/img/7.png" alt="" />
-              <div class="content__title">Миссии</div>
+          <div class="content">
+          <?php
+            $series = mysqli_query($connect, query: "SELECT * FROM `series`");
+            $series = mysqli_fetch_all($series);
+            foreach($series as $series){
+              ?>
+              <input type="hidden" name="film_id" value="<?= $series[0]?>">
+              <div class="content__item">
+              <img src="<?php echo $series[1]?>" alt="film" />
+              <div class="content__title"><?= $series[2]?></div>
               <div class="content__rating">
                 <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
+                <p><?=$series[3] ?></p>
                 <span1></span1>
                 <span2></span2>
-                <div>Сериал</div>
+                <div><?= $series[4]?></div>
               </div>
             </div>
-            <div class="content__item">
-              <img src="assets/img/8.png" alt="" />
-              <div class="content__title">Игры империй</div>
-              <div class="content__rating">
-                <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
-                <span1></span1>
-                <span2></span2>
-                <div>Сериал</div>
-              </div>
-            </div>
-            <div class="content__item">
-              <img src="assets/img/9.png" alt="" />
-              <div class="content__title">Задача трёх тел</div>
-              <div class="content__rating">
-                <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
-                <span1></span1>
-                <span2></span2>
-                <div>Сериал</div>
-              </div>
-            </div>
-            <div class="content__item">
-              <img src="assets/img/10.png" alt="" />
-              <div class="content__title">Моё маленькое счастье</div>
-              <div class="content__rating">
-                <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
-                <span1></span1>
-                <span2></span2>
-                <div>Сериал</div>
-              </div>
-            </div>
-            <div class="content__item">
-              <img src="assets/img/11.png" alt="" />
-              <div class="content__title">Зомби детектив</div>
-              <div class="content__rating">
-                <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
-                <span1></span1>
-                <span2></span2>
-                <div>Сериал</div>
-              </div>
-            </div>
-            <div class="content__item">
-              <img src="assets/img/12.png" alt="" />
-              <div class="content__title">Спрячь меня</div>
-              <div class="content__rating">
-                <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
-                <span1></span1>
-                <span2></span2>
-                <div>Сериал</div>
-              </div>
-            </div>
+            <?php
+            }
+          ?>
           </div>
         </section>
         <section class="content-block">
@@ -402,73 +334,28 @@
               class="overlay-next-img3"
             />
           </div>
-          <div class="content3">
-            <div class="content__item">
-              <img src="assets/img/13.png" alt="" />
-              <div class="content__title">Контейнер</div>
+          <div class="content">
+          <?php
+            $recommend = mysqli_query($connect, query: "SELECT * FROM `recommend`");
+            $recommend = mysqli_fetch_all($recommend);
+            foreach($recommend as $recommend){
+              ?>
+              <input type="hidden" name="film_id" value="<?= $recommend[0]?>">
+              <div class="content__item">
+              <img src="<?php echo $recommend[1]?>" alt="film" />
+              <div class="content__title"><?= $recommend[2]?></div>
               <div class="content__rating">
                 <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
+                <p><?=$recommend[3] ?></p>
                 <span1></span1>
                 <span2></span2>
-                <div>Сериал</div>
+                <div><?= $recommend[4]?></div>
               </div>
             </div>
-            <div class="content__item">
-              <img src="assets/img/14.png" alt="" />
-              <div class="content__title">Драйв</div>
-              <div class="content__rating">
-                <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
-                <span1></span1>
-                <span2></span2>
-                <div>Фильм</div>
-              </div>
-            </div>
-            <div class="content__item">
-              <img src="assets/img/15.png" alt="" />
-              <div class="content__title">Чукур</div>
-              <div class="content__rating">
-                <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
-                <span1></span1>
-                <span2></span2>
-                <div>Сериал</div>
-              </div>
-            </div>
-            <div class="content__item">
-              <img src="assets/img/16.png" alt="" />
-              <div class="content__title">Память</div>
-              <div class="content__rating">
-                <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
-                <span1></span1>
-                <span2></span2>
-                <div>Фильм</div>
-              </div>
-            </div>
-            <div class="content__item">
-              <img src="assets/img/17.png" alt="" />
-              <div class="content__title">Ветреный холм</div>
-              <div class="content__rating">
-                <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
-                <span1></span1>
-                <span2></span2>
-                <div>Сериал</div>
-              </div>
-            </div>
-            <div class="content__item">
-              <img src="assets/img/18.png" alt="" />
-              <div class="content__title">Дела человеческие</div>
-              <div class="content__rating">
-                <img src="assets/img/star.svg" alt="star" />
-                <p>4.6</p>
-                <span1></span1>
-                <span2></span2>
-                <div>Фильм</div>
-              </div>
-            </div>
+            <?php
+            }
+          ?>
+            
           </div>
         </section>
         <section class="subscription-wrapper _container">
@@ -545,7 +432,7 @@
               <nav class="footer__wrapper__main-block-nav">
                 <ul class="footer__wrapper__main-block-menu">
                   <li class="footer__wrapper__main-block-item">
-                    <a href="#" class="footer__wrapper__main-block-link"
+                    <a href="index.php" class="footer__wrapper__main-block-link"
                       >Главная</a
                     >
                   </li>
@@ -620,9 +507,20 @@
           </div>
         </div>
       </footer>
+      <div class="loader__container">
+        <div class="loader">
+            <span class="b1"></span>
+            <span class="b2"></span>
+            <span class="b3"></span>
+            <span class="b4"></span>
+            <span class="b5"></span>
+            <span class="b6"></span>
+        </div>
+      </div>
     </div>
   </body>
   <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
   <script src="assets/js/slick.min.js"></script>
+  <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
   <script src="assets/js/scripts.js"></script>
 </html>
