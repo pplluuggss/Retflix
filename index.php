@@ -1,4 +1,5 @@
 <?php
+  session_start();
   require_once 'assets/php/config/connect.php';
 ?>
 <!DOCTYPE html>
@@ -15,6 +16,79 @@
   <body>
     <!-- Общий контейнер -->
     <div class="wrapper">
+      <!-- Авторизация-Регистрация -->
+      <div class="modal-window">
+        <div class="modal-window__container">
+          <div class="modal-window__login modal-window-login">
+            <div class="modal-window__login__header">
+              <div class="modal-window__login__logo">
+                <img src="assets/img/logo.svg" alt="logo">
+                <p>Авторизация</p>
+              </div>
+              <div class="modal-window__close">Закрыть</div>
+            </div>
+            <form action="assets/php/signin.php" method="post">
+              <label for="email">Почта</label>
+              <input type="email" id="email" name="email" placeholder="Почта" required onchange="prov()">
+              <label for="password">Пароль</label>
+              <input type="password" id="password" name="password" placeholder="Пароль" required onchange="prov()">
+              <a href="#" class="reset-password">Забыл пароль</a>
+              <button type="submit" id="login" name="login" class="buttton-login">Войти</button>
+              <p>Нет аккаунта? <a class="login">Зарегестрироваться</a></p>
+              <?php
+                if (isset($_SESSION['message'])){
+                  echo '<p class="msg"> ' . $_SESSION['message'] . ' </p>';
+                  
+                }
+                unset($_SESSION['message']);
+              ?>
+            </form>
+          </div>
+          <div class="modal-window__login modal-window-register" >
+            <div class="modal-window__login__header">
+              <div class="modal-window__login__logo">
+                <img src="assets/img/logo.svg" alt="logo">
+                <p>Регистрация</p>
+              </div>
+              <div class="modal-window__close">Закрыть</div>
+            </div>
+            <form action="assets/php/signup.php" method="post">
+              <label for="name">Имя</label>
+              <input type="text" id="name" name="name" placeholder="Имя" required onchange="provv()">
+              <label for="email">Почта</label>
+              <input type="email" id="email" name="email" placeholder="Почта" required onchange="provv()">
+              <label for="password">Пароль</label>
+              <input type="password" id="password" name="password" placeholder="Пароль" required onchange="provv()">
+              <label for="password">Подтверждение пароля</label>
+              <input type="password" id="password_confirm" name="password_confirm" placeholder="Подтвердите пароль" required onchange="provv()">
+              <div>
+                <input
+                  type="checkbox"
+                  class="custom-checkbox"
+                  id="blank"
+                  name="blank"
+                  value="yes"
+                  required
+                />
+                <label for="blank"
+                  ><p>Я принимаю <a>Условия пользования </a> и <a> Политику конфиденциальности </a></p></label
+                >
+              </div>
+              <button type="submit" id="register" name="register" class="button-register">Продолжить</button>
+              <p>Есть аккаунта? <a class="register">Войти</a></p>
+              <?php
+                if (isset($_SESSION['message'])){
+                  echo '<p class="msg"> ' . $_SESSION['message'] . ' </p>';
+                  
+                }
+                unset($_SESSION['message']);
+              ?>
+            </form>
+          </div>
+          
+        </div>
+        <span></span>
+      </div>
     <div class="hero-player">
       <span></span>
       <div class="hero-player-close">
@@ -54,13 +128,13 @@
                 <a href="#" class="header__link">Сериалы</a>
               </li>
               <li class="header__item">
-                <a href="#" class="header__link">Новости</a>
+                <a href="news.php" class="header__link">Новости</a>
               </li>
               <li class="header__item">
-                <a href="#" class="header__link">Сообщество</a>
+                <a href="forum.php" class="header__link">Сообщество</a>
               </li>
               <li class="header__item">
-                <a href="#" class="header__link">О нас</a>
+                <a href="about.php" class="header__link">О нас</a>
               </li>
             </ul>
           </nav>
@@ -68,7 +142,7 @@
         <div class="burger__container">
           <ul class="header__menu">
             <li class="header__item">
-              <a href="#" class="header__link"><span>Главная</span></a>
+              <a href="index.php" class="header__link"><span>Главная</span></a>
             </li>
             <li class="header__item">
               <a href="#" class="header__link">Фильмы</a>
@@ -77,24 +151,24 @@
               <a href="#" class="header__link">Сериалы</a>
             </li>
             <li class="header__item">
-              <a href="#" class="header__link">Новости</a>
+              <a href="news.php" class="header__link">Новости</a>
             </li>
             <li class="header__item">
-              <a href="#" class="header__link">Сообщество</a>
+              <a href="forum.php" class="header__link">Сообщество</a>
             </li>
             <li class="header__item">
-              <a href="#" class="header__link">О нас</a>
+              <a href="about.php" class="header__link">О нас</a>
             </li>
           </ul>
           <div class="burger__content">
             <button class="button1">Оформить подписку</button>
-            <img src="assets/img/search.svg" alt="search" />
+            <a href="search.php"><img src="assets/img/search.svg" alt="search" /></a>
             <button class="button2">Войти</button>
           </div>
         </div>
         <div class="header__section2">
           <button class="button1">Оформить подписку</button>
-          <img src="assets/img/search.svg" alt="search" />
+            <a href="search.php"><img src="assets/img/search.svg" alt="search" /></a>
           <button class="button2">Войти</button>
           <div class="burger">
             <span></span>
@@ -499,7 +573,7 @@
                   <a href="#" class="footer__wrapper__inc-nav-link">Язык</a>
                 </li>
                 <li class="footer__wrapper__inc-nav-item">
-                  <a href="#" class="footer__wrapper__inc-nav-link">FAQ</a>
+                  <a href="faq.php" class="footer__wrapper__inc-nav-link">FAQ</a>
                 </li>
               </ul>
             </nav>
